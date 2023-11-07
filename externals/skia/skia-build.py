@@ -56,19 +56,22 @@ skia_use_system_libjpeg_turbo=false
 skia_use_system_libwebp=false 
 skia_use_system_icu=false 
 skia_use_system_zlib=false
-skia_use_system_freetype2=false
 """)
+
+### Configuring for ARM
+if platform.machine() == "arm64":
+    skia_build_arguments+=dedent("""
+    target_cpu="arm64" 
+    """).strip()
 
 ### Configuration for Apple
 if platform.system() == "Darwin":
-    if platform.machine() == "arm64":
-        print("Compiling Skia...")
-        skia_build_arguments+=dedent("""
-        target_cpu="arm64" 
-        target_os="mac"
-        """).strip()
+    skia_build_arguments+=dedent("""
+    target_os="mac"
+    """).strip()
 
 ### Actually compile
+print("Compiling Skia...")
 skia_build_output_path=Path("out", "StaticAppleSilicon")
 sp.run([skia_gn_path, "gen", skia_build_output_path, f"--args={skia_build_arguments}"], check=True)
 sp.run([skia_ninja_path, "-C", skia_build_output_path], check=True)
