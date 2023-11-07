@@ -11,7 +11,7 @@ from pathlib import Path
 root_path = Path(".").absolute()
 
 # Define Configuration
-with open("skia-build.config.json") as skia_builder_config_file:
+with open("skia-builder.config.json") as skia_builder_config_file:
     configuration = json.load(skia_builder_config_file)
 
 # Install depot_tools locally
