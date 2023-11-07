@@ -1,0 +1,13 @@
+{
+  "depot_tools": {
+    "source": {
+      "url": "https://chromium.googlesource.com/chromium/tools/depot_tools.git"
+    }
+  },
+  "skia": {
+    "source": {
+      "url": "https://skia.googlesource.com/skia.git"
+    },
+    "version": "m120"
+  }
+}
