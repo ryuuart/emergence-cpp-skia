@@ -1,13 +1,13 @@
 #include <iostream>
-#include "include/core/SkCanvas.h"
-#include "include/core/SkColor.h"
-#include "include/core/SkImage.h"
-#include "include/core/SkStream.h"
-#include "include/core/SkRect.h"
-#include "include/core/SkPaint.h"
-#include "include/core/SkBitmap.h"
-#include "include/codec/SkEncodedImageFormat.h"
-#include "include/encode/SkPngEncoder.h"
+#include "SkCanvas.h"
+#include "SkColor.h"
+#include "SkImage.h"
+#include "SkStream.h"
+#include "SkRect.h"
+#include "SkPaint.h"
+#include "SkBitmap.h"
+#include "SkEncodedImageFormat.h"
+#include "SkPngEncoder.h"
 
 int main() {
     // Define the image dimensions
