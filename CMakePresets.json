@@ -7,20 +7,44 @@
   },
   "configurePresets": [
     {
-      "name": "windows-default",
-      "displayName": "Windows x64 Release",
-      "description": "Sets Ninja generator, compilers, clang-cl, x64 architecture, build and install directory, debug build type",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build",
+      "name": "local",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build"
+    },
+    {
+      "name": "ninja",
+      "hidden": true,
+      "generator": "Ninja Multi-Config"
+    },
+    {
+      "name": "x64",
+      "hidden": true,
       "architecture": {
         "value": "x64",
         "strategy": "external"
-      },
+      }
+    },
+    {
+      "name": "arm64",
+      "hidden": true,
+      "architecture": {
+        "value": "arm64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "windows",
+      "hidden": true,
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
         "rhs": "Windows"
-      },
+      }
+    },
+    {
+      "name": "windows-clang",
+      "hidden": true,
+      "inherits": ["windows"],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "C:/Program Files/Llvm/bin/clang-cl.exe",
         "CMAKE_CXX_COMPILER": "C:/Program Files/Llvm/bin/clang-cl.exe"
@@ -31,12 +55,38 @@
           "intelliSenseMode": "windows-clang-x64"
         }
       }
+    },
+    {
+      "name": "local-ninja-x64-windows-clang",
+      "displayName": "x64 Windows",
+      "inherits": ["local", "ninja", "x64", "windows-clang"]
+    },
+    {
+      "name": "local-ninja-arm64-macos-clang",
+      "displayName": "arm64 MacOS",
+      "inherits": ["local", "ninja", "arm64"]
     }
   ],
   "buildPresets": [
     {
-      "name": "windows-default",
-      "configurePreset": "windows-default"
+      "name": "windows",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "local-ninja-arm64-macos-clang-release",
+      "configurePreset": "local-ninja-arm64-macos-clang",
+      "configuration": "Release"
+    },
+    {
+      "name": "local-ninja-x64-windows-clang-release",
+      "configurePreset": "local-ninja-x64-windows-clang",
+      "configuration": "Release",
+      "inherits": ["windows"]
     }
   ]
 }
