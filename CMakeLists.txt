@@ -29,7 +29,7 @@ set(SKIA_HEADERS
 )
 include_directories(${SKIA_HEADERS})
 
-set(SKIA_LIB_DIR "${SKIA_SOURCE_DIR}/out/StaticAppleSilicon")
+set(SKIA_LIB_DIR "${SKIA_SOURCE_DIR}/out/Release")
 
 find_package(OpenGL REQUIRED)
 
@@ -37,9 +37,9 @@ if (APPLE)
     target_link_libraries(SkiaTestApp PRIVATE "-framework Cocoa")
 endif()
 
+find_library(SKIA_LIBRARY skia HINTS ${SKIA_LIB_DIR})
 target_link_libraries(SkiaTestApp 
-	PRIVATE 
-		${SKIA_LIB_DIR}/libskia.a
+	PRIVATE ${SKIA_LIBRARY}
 )
 
 target_compile_features(SkiaTestApp PRIVATE cxx_std_17)
