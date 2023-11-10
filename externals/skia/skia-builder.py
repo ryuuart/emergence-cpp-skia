@@ -86,6 +86,8 @@ with open(Path(skia_build_output_path, "args.gn"), 'w', encoding="utf-8") as fil
                 processed_v = v
                 if (type(v) is bool):
                     processed_v = str(v).lower()
+                if (type(v) is list):
+                    processed_v = str(v).replace("\'", "\"")
                 elif(type(v) is str):
                     processed_v = f"\"{v}\""
 
@@ -98,5 +100,8 @@ with open(Path(skia_build_output_path, "args.gn"), 'w', encoding="utf-8") as fil
 # Actually compile
 print("Compiling Skia...")
 
-run(["gn", "gen", str(skia_build_output_path), "--ide=vs"])
+if(platform.system() == "Windows"):
+    run(["gn", "gen", str(skia_build_output_path), "--ide=vs"])
+else:
+    run(["gn", "gen", str(skia_build_output_path)])
 run(["ninja", "-C", str(skia_build_output_path)])
